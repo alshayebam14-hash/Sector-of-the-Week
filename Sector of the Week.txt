@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام جرد نقاط القطاعات العسكرية</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --panel-bg: #161b22;
+            --text-color: #c9d1d9;
+            --accent-color: #238636;
+            --accent-hover: #2ea043;
+            --border-color: #30363d;
+            --danger-color: #da3633;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            min-height: 100vh;
+        }
+        /* القائمة الجانبية */
+        sidebar {
+            width: 260px;
+            background-color: var(--panel-bg);
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+        }
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 0 20px 15px;
+            color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+        .nav-links {
+            list-style: none;
+            flex: 1;
+        }
+        .nav-links li {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.95rem;
+            border-left: 3px solid transparent;
+        }
+        .nav-links li:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+        }
+        .nav-links li.active {
+            background-color: rgba(35, 134, 54, 0.15);
+            color: #56d364;
+            border-left-color: #56d364;
+            font-weight: bold;
+        }
+        /* محتوى الصفحة */
+        main {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        .page-content {
+            display: none;
+        }
+        .page-content.active {
+            display: block;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #ffffff;
+            font-size: 1.5rem;
+        }
+        .card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 180px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-color);
+            padding: 12px;
+            font-size: 0.9rem;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #56d364;
+        }
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+        .result-box {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #56d364;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.03);
+            color: #ffffff;
+        }
+        .winner-badge {
+            background-color: #d29922;
+            color: #000;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .discord-btn {
+            background-color: #5865F2;
+            margin-top: 15px;
+        }
+        .discord-btn:hover {
+            background-color: #4752C4;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- القائمة الجانبية -->
+    <sidebar>
+        <div class="sidebar-title">نظام الجرد العسكري</div>
+        <ul class="nav-links">
+            <li class="active" onclick="switchPage('sec-security', this)">الأمن العام</li>
+            <li onclick="switchPage('sec-swat', this)">سوات</li>
+            <li onclick="switchPage('sec-mabahith', this)">المباحث العامة</li>
+            <li onclick="switchPage('sec-special', this)">سبيشل فورس</li>
+            <li onclick="switchPage('sec-army', this)">القوات المسلحة</li>
+            <li onclick="switchPage('sec-royal', this)">رئاسة الحرس الملكي</li>
+            <li onclick="switchPage('sec-summary', this)" style="border-top: 1px solid var(--border-color); margin-top: 10px; padding-top: 15px;">📊 التقارير والإرسال للديسكورد</li>
+        </ul>
+    </sidebar>
+
+    <!-- محتوى الصفحات -->
+    <main>
+        <!-- صفحات القطاعات -->
+        <div id="sec-security" class="page-content active">
+            <h2>جرد نقاط: الأمن العام</h2>
+            <div class="card">
+                <p>قم بلصق الرسائل هنا (سيتم استخراج النقاط تلقائياً وحساب المجموع):</p><br>
+                <textarea placeholder="الصق الرسائل هنا..."></textarea>
+                <button class="btn" onclick="calculatePoints('sec-security')">حساب النقاط</button>
+                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+            </div>
+        </div>
+
+        <div id="sec-swat" class="page-content">
+            <h2>جرد نقاط: سوات</h2>
+            <div class="card">
+                <p>قم بلصق الرسائل هنا:</p><br>
+                <textarea placeholder="الصق الرسائل هنا..."></textarea>
+                <button class="btn" onclick="calculatePoints('sec-swat')">حساب النقاط</button>
+                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+            </div>
+        </div>
+
+        <div id="sec-mabahith" class="page-content">
+            <h2>جرد نقاط: المباحث العامة</h2>
+            <div class="card">
+                <p>قم بلصق الرسائل هنا:</p><br>
+                <textarea placeholder="الصق الرسائل هنا..."></textarea>
+                <button class="btn" onclick="calculatePoints('sec-mabahith')">حساب النقاط</button>
+                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+            </div>
+        </div>
+
+        <div id="sec-special" class="page-content">
+            <h2>جرد نقاط: سبيشل فورس</h2>
+            <div class="card">
+                <p>قم بلصق الرسائل هنا:</p><br>
+                <textarea placeholder="الصق الرسائل هنا..."></textarea>
+                <button class="btn" onclick="calculatePoints('sec-special')">حساب النقاط</button>
+                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+            </div>
+        </div>
+
+        <div id="sec-army" class="page-content">
+            <h2>جرد نقاط: القوات المسلحة</h2>
+            <div class="card">
+                <p>قم بلصق الرسائل هنا:</p><br>
+                <textarea placeholder="الصق الرسائل هنا..."></textarea>
+                <button class="btn" onclick="calculatePoints('sec-army')">حساب النقاط</button>
+                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+            </div>
+        </div>
+
+        <div id="sec-royal" class="page-content">
+            <h2>جرد نقاط: رئاسة الحرس الملكي</h2>
+            <div class="card">
+                <p>قم بلصق الرسائل هنا:</p><br>
+                <textarea placeholder="الصق الرسائل هنا..."></textarea>
+                <button class="btn" onclick="calculatePoints('sec-royal')">حساب النقاط</button>
+                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+            </div>
+        </div>
+
+        <!-- صفحة التقارير وإرسال الديسكورد -->
+        <div id="sec-summary" class="page-content">
+            <h2>التقارير الشاملة وإرسال الديسكورد</h2>
+            <div class="card">
+                <p>ترتيب القطاعات بناءً على إجمالي النقاط المحسوبة:</p>
+                <table id="summary-table">
+                    <thead>
+                        <tr>
+                            <th>المركز</th>
+                            <th>القطاع</th>
+                            <th>مجموع النقاط</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- تعبئة تلقائية -->
+                    </tbody>
+                </table>
+                <br>
+                <button class="btn discord-btn" onclick="sendToDiscord()">إرسال التقرير إلى الديسكورد 🚀</button>
+                <p id="discord-status" style="margin-top: 10px; font-size: 0.9rem;"></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // تخزين النقاط لكل قطاع
+        const sectorData = {
+            'sec-security': { name: 'الأمن العام', points: 0 },
+            'sec-swat': { name: 'سوات', points: 0 },
+            'sec-mabahith': { name: 'المباحث العامة', points: 0 },
+            'sec-special': { name: 'سبيشل فورس', points: 0 },
+            'sec-army': { name: 'القوات المسلحة', points: 0 },
+            'sec-royal': { name: 'رئاسة الحرس الملكي', points: 0 }
+        };
+
+        function switchPage(pageId, element) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-links li').forEach(l => l.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            element.classList.add('active');
+
+            if (pageId === 'sec-summary') {
+                updateSummaryTable();
+            }
+        }
+
+        // دالة استخراج وحساب النقاط من النص الملصق
+        function calculatePoints(secId) {
+            const container = document.getElementById(secId);
+            const text = container.querySelector('textarea').value;
+            
+            // البحث عن كلمة "النقاط" أو "النقاط :" يتبعها الرقم
+            // يدعم الصيغ مثل: "النقاط  : 1" أو أي سطر يحتوي على أرقام بعد كلمة النقاط
+            const regex = /النقاط\s*:\s*(\d+)/g;
+            let match;
+            let total = 0;
+
+            while ((match = regex.exec(text)) !== null) {
+                total += parseInt(match[1], 10);
+            }
+
+            // تخزين المجموع
+            sectorData[secId].points = total;
+            container.querySelector('.total-val').textContent = total;
+            alert('تم حساب مجموع النقاط بنجاح: ' + total);
+        }
+
+        // تحديث جدول الملخص والترتيب
+        function updateSummaryTable() {
+            const tbody = document.querySelector('#summary-table tbody');
+            tbody.innerHTML = '';
+
+            // تحويل الكائن إلى مصفوفة وترتيبها تنازلياً حسب النقاط
+            const sortedSectors = Object.entries(sectorData).sort((a, b) => b[1].points - a[1].points);
+
+            sortedSectors.forEach((item, index) => {
+                const [id, data] = item;
+                const row = document.createElement('tr');
+                
+                let statusText = '-';
+                if (index === 0 && data.points > 0) {
+                    statusText = '<span class="winner-badge">⭐ قطاع الأسبوع</span>';
+                }
+
+                row.innerHTML = `
+                    <td>#${index + 1}</td>
+                    <td>${data.name}</td>
+                    <td>${data.points}</td>
+                    <td>${statusText}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // إرسال البيانات عبر Webhook للديسكورد
+        async function sendToDiscord() {
+            const webhookUrl = "https://discord.com/api/webhooks/1554204828115280004/dqJGtVK-cGdvdBI6wtWTG_plDif-OjjkNSlmCpulWnssmCyKzTtb3iPov1NNtjfrpG-t";
+            const statusEl = document.getElementById('discord-status');
+
+            // ترتيب القطاعات
+            const sortedSectors = Object.entries(sectorData).sort((a, b) => b[1].points - a[1].points);
+
+            let description = "📊 **تقرير جرد نقاط القطاعات الأسبوعي**\n\n";
+            sortedSectors.forEach((item, index) => {
+                const data = item[1];
+                let crown = (index === 0 && data.points > 0) ? " 👑 **[ قطاع الأسبوع ]**" : "";
+                description += `**#${index + 1}** - ${data.name} : \`${data.points} نقطة\` ${crown}\n`;
+            });
+
+            const payload = {
+                embeds: [{
+                    title: "🏆 نتائج جرد نقاط القطاعات العسكرية",
+                    description: description,
+                    color: 3447003, // لون أزرق مميز
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            statusEl.style.color = "#c9d1d9";
+            statusEl.textContent = "جاري الإرسال إلى ديسكورد...";
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok || response.status === 204) {
+                    statusEl.style.color = "#56d364";
+                    statusEl.textContent = "✅ تم إرسال التقرير إلى الديسكورد بنجاح!";
+                } else {
+                    statusEl.style.color = "#da3633";
+                    statusEl.textContent = "❌ تعذر الإرسال، تحقق من صحة الرابط أو صلاحيات الويب هوك.";
+                }
+            } catch (error) {
+                statusEl.style.color = "#da3633";
+                statusEl.textContent = "❌ حدث خطأ أثناء الاتصال بالديسكورد (قد يمنع المتصفح الطلب بسبب CORS، يُفضل تشغيله عبر سيرفر محلي أو بوت).";
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>
