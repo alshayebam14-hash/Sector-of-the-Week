@@ -352,7 +352,7 @@
         <div id="sec-summary" class="page-content">
             <h2>التقارير الشاملة وإرسال الديسكورد</h2>
             <div class="card">
-                <p>ترتيب القطاعات بناءً على المجموع الصافي (بعد خصم دبل الرئاسة):</p>
+                <p>ترتيب القطاعات بناءً على المجموع الصافي:</p>
                 <table id="summary-table">
                     <thead>
                         <tr>
@@ -410,7 +410,7 @@
             for (let cText of cases) {
                 if (!cText.trim()) continue;
 
-                // جمع النقاط الكاملة لكل الحالات بشكل طبيعي
+                // استخراج النقاط في هذا السجل
                 const pointMatch = cText.match(/النقاط\s*:\s*(\d+)/);
                 let currentPoints = 0;
                 if (pointMatch) {
@@ -418,7 +418,7 @@
                     fullTotal += currentPoints;
                 }
 
-                // فحص إذا كان السجل يحتوي على دبل رئاسة لخصم نقاطه
+                // فحص ما إذا كان السجل يحتوي على اسم من الرئاسة
                 let presidencySection = "";
                 const presMatch = cText.match(/منشن الرئاسة\s*:\s*([\s\S]*?)(?=منشن المسؤول|منشن المشاركين|النقاط|$)/i);
                 if (presMatch && presMatch[1]) {
@@ -433,25 +433,24 @@
                     }
                 }
 
+                // إذا وجد اسم رئاسة، يتم خصم نقاط هذا السجل بالكامل (نقاطه المكتوبة)
                 if (hasPresident) {
-                    // إذا وجد اسم رئاسة، يتم احتساب نقطة للخصم (أو يمكنك جعلها currentPoints إذا أردت خصم النقاط كاملة للحالة)
-                    presidencyDeduction += 1; 
+                    presidencyDeduction += currentPoints; 
                 }
             }
 
-            // المجموع الصافي = النقاط الكاملة - نقاط دبل الرئاسة
+            // المجموع الصافي = النقاط الكاملة - نقاط دبل الرئاسة (مخصومة بالكامل)
             let netTotal = fullTotal - presidencyDeduction;
             if (netTotal < 0) netTotal = 0;
 
-            // تخزين النتائج
             sectorData[secId].points = netTotal;
 
-            // عرض النتائج في المستطيلات الثلاثة
+            // عرض النتائج في المربعات الثلاثة
             container.querySelector('.full-val').textContent = fullTotal;
             container.querySelector('.pres-val').textContent = presidencyDeduction;
             container.querySelector('.net-val').textContent = netTotal;
 
-            alert('تم الحساب بنجاح | الكاملة: ' + fullTotal + ' | الخصم: ' + presidencyDeduction + ' | الصافي: ' + netTotal);
+            alert('تم الحساب | الكاملة: ' + fullTotal + ' | الخصم الكامل: ' + presidencyDeduction + ' | الصافي: ' + netTotal);
         }
 
         function updateSummaryTable() {
@@ -485,7 +484,7 @@
 
             const sortedSectors = Object.entries(sectorData).sort((a, b) => b[1].points - a[1].points);
 
-            let description = "📊 **تقرير جرد نقاط القطاعات الأسبوعي**\n*(النتائج محسوبة بعد خصم نقاط دبل الرئاسة)*\n\n";
+            let description = "📊 **تقرير جرد نقاط القطاعات الأسبوعي**\n*(بعد خصم نقاط دبل الرئاسة بالكامل)*\n\n";
             sortedSectors.forEach((item, index) => {
                 const data = item[1];
                 let crown = (index === 0 && data.points > 0) ? " 👑 **[ قطاع الأسبوع ]**" : "";
