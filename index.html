@@ -117,11 +117,31 @@
         .btn:hover {
             background-color: var(--accent-hover);
         }
-        .result-box {
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
             margin-top: 15px;
-            font-size: 1.1rem;
+        }
+        .result-box {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .result-box h4 {
+            font-size: 0.9rem;
+            color: #8b949e;
+            margin-bottom: 5px;
+        }
+        .result-box span {
+            font-size: 1.3rem;
             font-weight: bold;
             color: #56d364;
+        }
+        .result-box.danger span {
+            color: #da3633;
         }
         table {
             width: 100%;
@@ -181,11 +201,25 @@
         <div id="sec-security" class="page-content active">
             <h2>جرد نقاط: الأمن العام</h2>
             <div class="card">
-                <p>قم بلصق الرسائل هنا (السجلات التي بها دبل رئاسة تحسب بـ 1 نقطة تلقائياً):</p>
+                <p>قم بلصق الرسائل هنا:</p>
                 <p class="note">⚠️ أسماء الرئاسة (دبل): A-3 Normal, A-1 MQ, A-5 Lovely, A-4 Thamer, A-6 Nawaf, A-2 IBRAHIM, A-7 MJ7OOD, Mastermind</p>
                 <textarea placeholder="الصق الرسائل هنا..."></textarea>
                 <button class="btn" onclick="calculatePoints('sec-security')">حساب النقاط</button>
-                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+                
+                <div class="results-grid">
+                    <div class="result-box">
+                        <h4>النقاط الكاملة</h4>
+                        <span class="full-val">0</span>
+                    </div>
+                    <div class="result-box danger">
+                        <h4>نقاط دبل الرئاسة (الخصم)</h4>
+                        <span class="pres-val">0</span>
+                    </div>
+                    <div class="result-box">
+                        <h4>المجموع الصافي</h4>
+                        <span class="net-val">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -196,7 +230,21 @@
                 <p class="note">⚠️ أسماء الرئاسة (دبل): A-3 Normal, A-1 MQ, A-5 Lovely, A-4 Thamer, A-6 Nawaf, A-2 IBRAHIM, A-7 MJ7OOD, Mastermind</p>
                 <textarea placeholder="الصق الرسائل هنا..."></textarea>
                 <button class="btn" onclick="calculatePoints('sec-swat')">حساب النقاط</button>
-                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+                
+                <div class="results-grid">
+                    <div class="result-box">
+                        <h4>النقاط الكاملة</h4>
+                        <span class="full-val">0</span>
+                    </div>
+                    <div class="result-box danger">
+                        <h4>نقاط دبل الرئاسة (الخصم)</h4>
+                        <span class="pres-val">0</span>
+                    </div>
+                    <div class="result-box">
+                        <h4>المجموع الصافي</h4>
+                        <span class="net-val">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -207,7 +255,21 @@
                 <p class="note">⚠️ أسماء الرئاسة (دبل): A-3 Normal, A-1 MQ, A-5 Lovely, A-4 Thamer, A-6 Nawaf, A-2 IBRAHIM, A-7 MJ7OOD, Mastermind</p>
                 <textarea placeholder="الصق الرسائل هنا..."></textarea>
                 <button class="btn" onclick="calculatePoints('sec-mabahith')">حساب النقاط</button>
-                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+                
+                <div class="results-grid">
+                    <div class="result-box">
+                        <h4>النقاط الكاملة</h4>
+                        <span class="full-val">0</span>
+                    </div>
+                    <div class="result-box danger">
+                        <h4>نقاط دبل الرئاسة (الخصم)</h4>
+                        <span class="pres-val">0</span>
+                    </div>
+                    <div class="result-box">
+                        <h4>المجموع الصافي</h4>
+                        <span class="net-val">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -218,7 +280,21 @@
                 <p class="note">⚠️ أسماء الرئاسة (دبل): A-3 Normal, A-1 MQ, A-5 Lovely, A-4 Thamer, A-6 Nawaf, A-2 IBRAHIM, A-7 MJ7OOD, Mastermind</p>
                 <textarea placeholder="الصق الرسائل هنا..."></textarea>
                 <button class="btn" onclick="calculatePoints('sec-special')">حساب النقاط</button>
-                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+                
+                <div class="results-grid">
+                    <div class="result-box">
+                        <h4>النقاط الكاملة</h4>
+                        <span class="full-val">0</span>
+                    </div>
+                    <div class="result-box danger">
+                        <h4>نقاط دبل الرئاسة (الخصم)</h4>
+                        <span class="pres-val">0</span>
+                    </div>
+                    <div class="result-box">
+                        <h4>المجموع الصافي</h4>
+                        <span class="net-val">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -229,7 +305,21 @@
                 <p class="note">⚠️ أسماء الرئاسة (دبل): A-3 Normal, A-1 MQ, A-5 Lovely, A-4 Thamer, A-6 Nawaf, A-2 IBRAHIM, A-7 MJ7OOD, Mastermind</p>
                 <textarea placeholder="الصق الرسائل هنا..."></textarea>
                 <button class="btn" onclick="calculatePoints('sec-army')">حساب النقاط</button>
-                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+                
+                <div class="results-grid">
+                    <div class="result-box">
+                        <h4>النقاط الكاملة</h4>
+                        <span class="full-val">0</span>
+                    </div>
+                    <div class="result-box danger">
+                        <h4>نقاط دبل الرئاسة (الخصم)</h4>
+                        <span class="pres-val">0</span>
+                    </div>
+                    <div class="result-box">
+                        <h4>المجموع الصافي</h4>
+                        <span class="net-val">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -240,7 +330,21 @@
                 <p class="note">⚠️ أسماء الرئاسة (دبل): A-3 Normal, A-1 MQ, A-5 Lovely, A-4 Thamer, A-6 Nawaf, A-2 IBRAHIM, A-7 MJ7OOD, Mastermind</p>
                 <textarea placeholder="الصق الرسائل هنا..."></textarea>
                 <button class="btn" onclick="calculatePoints('sec-royal')">حساب النقاط</button>
-                <div class="result-box">مجموع النقاط: <span class="total-val">0</span></div>
+                
+                <div class="results-grid">
+                    <div class="result-box">
+                        <h4>النقاط الكاملة</h4>
+                        <span class="full-val">0</span>
+                    </div>
+                    <div class="result-box danger">
+                        <h4>نقاط دبل الرئاسة (الخصم)</h4>
+                        <span class="pres-val">0</span>
+                    </div>
+                    <div class="result-box">
+                        <h4>المجموع الصافي</h4>
+                        <span class="net-val">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -248,13 +352,13 @@
         <div id="sec-summary" class="page-content">
             <h2>التقارير الشاملة وإرسال الديسكورد</h2>
             <div class="card">
-                <p>ترتيب القطاعات بناءً على إجمالي النقاط:</p>
+                <p>ترتيب القطاعات بناءً على المجموع الصافي (بعد خصم دبل الرئاسة):</p>
                 <table id="summary-table">
                     <thead>
                         <tr>
                             <th>المركز</th>
                             <th>القطاع</th>
-                            <th>مجموع النقاط</th>
+                            <th>المجموع الصافي</th>
                             <th>الحالة</th>
                         </tr>
                     </thead>
@@ -279,7 +383,6 @@
             'sec-royal': { name: 'رئاسة الحرس الملكي', points: 0 }
         };
 
-        // أسماء الرئاسة المعتمدة لدبل الرئاسة
         const excludedPresidents = [
             "normal", "mq", "lovely", "thamer", "nawaf", "ibrahim", "mj7ood", "mastermind"
         ];
@@ -296,25 +399,32 @@
             }
         }
 
-        // دالة حساب النقاط مع قاعدة دبل الرئاسة (تحسب بـ 1 نقطة إذا وُجد أحد أسماء الرئاسة)
         function calculatePoints(secId) {
             const container = document.getElementById(secId);
             const text = container.querySelector('textarea').value;
             
             const cases = text.split(/(?=تم مباشرة الحالة من قبل)/g);
-            let total = 0;
+            let fullTotal = 0;
+            let presidencyDeduction = 0;
 
             for (let cText of cases) {
                 if (!cText.trim()) continue;
 
-                // استخراج قسم "منشن الرئاسة"
+                // جمع النقاط الكاملة لكل الحالات بشكل طبيعي
+                const pointMatch = cText.match(/النقاط\s*:\s*(\d+)/);
+                let currentPoints = 0;
+                if (pointMatch) {
+                    currentPoints = parseInt(pointMatch[1], 10);
+                    fullTotal += currentPoints;
+                }
+
+                // فحص إذا كان السجل يحتوي على دبل رئاسة لخصم نقاطه
                 let presidencySection = "";
                 const presMatch = cText.match(/منشن الرئاسة\s*:\s*([\s\S]*?)(?=منشن المسؤول|منشن المشاركين|النقاط|$)/i);
                 if (presMatch && presMatch[1]) {
                     presidencySection = presMatch[1].toLowerCase();
                 }
 
-                // التحقق هل يوجد اسم من أسماء الرئاسة في هذا السجل؟
                 let hasPresident = false;
                 for (let name of excludedPresidents) {
                     if (presidencySection.includes(name)) {
@@ -324,20 +434,24 @@
                 }
 
                 if (hasPresident) {
-                    // إذا وجد اسم رئاسة (دبل)، يتم احتساب السجل بـ 1 نقطة فقط
-                    total += 1;
-                } else {
-                    // إذا لم يوجد، يتم قراءة النقاط الأصلية المكتوبة في السجل وإضافتها
-                    const pointMatch = cText.match(/النقاط\s*:\s*(\d+)/);
-                    if (pointMatch) {
-                        total += parseInt(pointMatch[1], 10);
-                    }
+                    // إذا وجد اسم رئاسة، يتم احتساب نقطة للخصم (أو يمكنك جعلها currentPoints إذا أردت خصم النقاط كاملة للحالة)
+                    presidencyDeduction += 1; 
                 }
             }
 
-            sectorData[secId].points = total;
-            container.querySelector('.total-val').textContent = total;
-            alert('تم حساب النقاط بنجاح (سجلات دبل الرئاسة حسبت بـ 1 نقطة): ' + total);
+            // المجموع الصافي = النقاط الكاملة - نقاط دبل الرئاسة
+            let netTotal = fullTotal - presidencyDeduction;
+            if (netTotal < 0) netTotal = 0;
+
+            // تخزين النتائج
+            sectorData[secId].points = netTotal;
+
+            // عرض النتائج في المستطيلات الثلاثة
+            container.querySelector('.full-val').textContent = fullTotal;
+            container.querySelector('.pres-val').textContent = presidencyDeduction;
+            container.querySelector('.net-val').textContent = netTotal;
+
+            alert('تم الحساب بنجاح | الكاملة: ' + fullTotal + ' | الخصم: ' + presidencyDeduction + ' | الصافي: ' + netTotal);
         }
 
         function updateSummaryTable() {
@@ -371,7 +485,7 @@
 
             const sortedSectors = Object.entries(sectorData).sort((a, b) => b[1].points - a[1].points);
 
-            let description = "📊 **تقرير جرد نقاط القطاعات الأسبوعي**\n*(السجلات التي بها دبل رئاسة احتسبت بـ 1 نقطة)*\n\n";
+            let description = "📊 **تقرير جرد نقاط القطاعات الأسبوعي**\n*(النتائج محسوبة بعد خصم نقاط دبل الرئاسة)*\n\n";
             sortedSectors.forEach((item, index) => {
                 const data = item[1];
                 let crown = (index === 0 && data.points > 0) ? " 👑 **[ قطاع الأسبوع ]**" : "";
@@ -391,7 +505,7 @@
             statusEl.textContent = "جاري الإرسال إلى ديسكورد...";
 
             try {
-                const response = await fetch(webhookUrl, {
+                await fetch(webhookUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
